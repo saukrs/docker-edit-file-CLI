@@ -10,7 +10,8 @@ docker()
     # TODO: Count only non-option arguments (avoid options/switcher like `-d` or `--interactive` inbetween)
 
     if [[ "$#" < 3 || "${ARGS[(($#-3))]}" != "edit" ]]; then
-    /usr/bin/env docker "$@"
+        /usr/bin/env docker "$@"
+        return $?
     fi
 
     echo "Going to edit '${ARGS[(($#-1))]}' on '${ARGS[(($#-2))]}'."
