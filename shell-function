@@ -7,19 +7,19 @@ docker()
    #echo Container argument number: $(($#-2))
    #echo The file argument number: $(($#-1))
 
-    local ARGNUM_OF_CMMD=$(($#-3))
-    local ARGNUM_OF_SRVC=$(($#-2))
-    local ARGNUM_OF_FILE=$(($#-1))
+    local _CMMD=$(($#-3))
+    local _SRVC=$(($#-2))
+    local _FILE=$(($#-1))
 
     # TODO: Count only non-option arguments (avoid options/switcher like `-d` or `--interactive` inbetween)
 
-    if [[ "$#" < 3 || "${ARGS[$ARGNUM_OF_CMD]}" != "edit" ]]; then
+    if [[ "$#" < 3 || "${ARGS[$_CMD]}" != "edit" ]]; then
         /usr/bin/env docker "$@"
         return $?
     fi
 
-    local SRVC="${ARGS[$ARGNUM_OF_SRVC]}"
-    local FILE="${ARGS[$ARGNUM_OF_FILE]}"
+    local SRVC="${ARGS[$_SRVC]}"
+    local FILE="${ARGS[$_FILE]}"
 
     # Temporary file to buffer content of the specific file from guest:
     TMPFILE=`mktemp "/tmp/bash-function-docker-edit-XXXXXXXX-$(basename $FILE).BUFFER"`
@@ -41,12 +41,12 @@ docker()
     # Thus we proceed with trimming tailf of the original command line and rewriting it instead:
 
     local ARGS_MAIN=(${ARGS[@]})
-    unset -v ARGS_MAIN[$ARGNUM_OF_CMMD]
-    unset -v ARGS_MAIN[$ARGNUM_OF_SRVC]
-    unset -v ARGS_MAIN[$ARGNUM_OF_FILE]
+    unset -v ARGS_MAIN[$_CMMD]
+    unset -v ARGS_MAIN[$_SRVC]
+    unset -v ARGS_MAIN[$_FILE]
 
     # Retrieve the file from guest into buffer:
-    /usr/bin/env docker "${ARGS_MAIN[@]}" exec "${ARGS[$ARGNUM_OF_SRVC]}" cat "${ARGS[$ARGNUM_OF_FILE]}" > ${TMPFILE}
+    /usr/bin/env docker "${ARGS_MAIN[@]}" exec "${ARGS[$_SRVC]}" cat "${ARGS[$_FILE]}" > ${TMPFILE}
 
     # Edit the buffer:
     ${EDITOR:-vim} ${TMPFILE}
@@ -59,7 +59,7 @@ docker()
     fi
 
     # Push the buffer contents into the original file on guest:
-    /usr/bin/env docker "${ARGS_MAIN[@]}" exec -i "${ARGS[$ARGNUM_OF_SRVC]}" sh -c "cat > ${ARGS[$ARGNUM_OF_FILE]}" < ${TMPFILE}
+    /usr/bin/env docker "${ARGS_MAIN[@]}" exec -i "${ARGS[$_SRVC]}" sh -c "cat > ${ARGS[$_FILE]}" < ${TMPFILE}
 
     rm -v ${TMPFILE}
     return
