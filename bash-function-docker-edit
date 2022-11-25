@@ -57,14 +57,23 @@ docker()
     RES=$?
 
     # Abort on editor abort:
-    if [[ ! $RES -eq 0 ]]; then
+    if [[ ! $RES -eq 0 && ! $RES -eq 148 ]]; then
         echo Docker file editing aborted. > /dev/stderr
         return $RES
     fi
+
+    # Wait for the editor to finish in case it was suspended:
+    while [[ $RES -eq 148 ]]; do
+        echo RES is $RES
+        echo TODO: Implement wait for the suspended Vim process.
+        fg
+        echo TODO: On the 2nd Vim suspend this line becomes unreachable.
+        RES=$?
+    done
 
     # Push the buffer contents into the original file on guest:
     /usr/bin/env docker "${ARGS_MAIN[@]}" exec -i "${ARGS[$_SRVC]}" sh -c "cat > ${ARGS[$_FILE]}" < ${TMPFILE}
 
     rm -v ${TMPFILE}
-    return
+    return 0
 }
