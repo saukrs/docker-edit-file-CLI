@@ -1,4 +1,4 @@
-# Implementation of `docker ... edit` subcommand
+# Implementation of `docker ... edit` command
 
 The Bash shim/function to emulate editing Docker guest file from the Docker host.
 
@@ -22,7 +22,7 @@ To be sure for the 1st time, maybe check the result:
 $ declare -f docker
 ```
 
-Then run the `edit` subcommand:
+Then run the new, emulated `docker edit` command:
 ```
 $ docker [OPTIONS] edit CONTAINER GUEST_FILE
 ```
