@@ -54,6 +54,12 @@ docker()
     /usr/bin/env docker "${ARGS_CAT[@]}" > ${TMPFILE}
 
     ${EDITOR:-vim} ${TMPFILE} < /dev/tty > /dev/tty
+    RES=$?
+
+    if [[ ! $RES -eq 0 ]]; then
+        echo Docker file editing aborted. > /dev/stderr
+        return $RES
+    fi
 
     rm -v ${TMPFILE}
     return
