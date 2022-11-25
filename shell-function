@@ -14,7 +14,11 @@ docker()
         return $?
     fi
 
-    echo "Going to edit '${ARGS[(($#-1))]}' on '${ARGS[(($#-2))]}'."
+    SRVC="${ARGS[(($#-2))]}"
+    FILE="${ARGS[(($#-1))]}"
+
+    echo TODO:
+    echo Going to edit $FILE inside $SERVICE
 
     return
 }
