@@ -1,15 +1,15 @@
 docker()
 {
-    ARGS=("$@")
+    local ARGS=("$@")
 
    #echo Argument count: $#
    #echo Docker cmd argument number: $(($#-3))
    #echo Container argument number: $(($#-2))
    #echo The file argument number: $(($#-1))
 
-    ARGNUM_OF_CMMD=$(($#-3))
-    ARGNUM_OF_SRVC=$(($#-2))
-    ARGNUM_OF_FILE=$(($#-1))
+    local ARGNUM_OF_CMMD=$(($#-3))
+    local ARGNUM_OF_SRVC=$(($#-2))
+    local ARGNUM_OF_FILE=$(($#-1))
 
     # TODO: Count only non-option arguments (avoid options/switcher like `-d` or `--interactive` inbetween)
 
@@ -18,8 +18,8 @@ docker()
         return $?
     fi
 
-    SRVC="${ARGS[$ARGNUM_OF_SRVC]}"
-    FILE="${ARGS[$ARGNUM_OF_FILE]}"
+    local SRVC="${ARGS[$ARGNUM_OF_SRVC]}"
+    local FILE="${ARGS[$ARGNUM_OF_FILE]}"
 
     echo TODO:
     echo Going to edit $FILE inside $SERVICE
