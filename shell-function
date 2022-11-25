@@ -21,8 +21,11 @@ docker()
     local SRVC="${ARGS[$ARGNUM_OF_SRVC]}"
     local FILE="${ARGS[$ARGNUM_OF_FILE]}"
 
+    # Temporary file to buffer content of the specific file from guest:
+    TMPFILE=`mktemp "/tmp/bash-function-docker-edit-XXXXXXXX-$(basename $FILE).BUFFER"`
+
     echo TODO:
-    echo Going to edit $FILE inside $SERVICE
+    echo Going to edit $FILE inside $SERVICE using $TMPFILE
 
     # The plan is to convert this command line:
     #
@@ -48,7 +51,10 @@ docker()
     ARGS_CAT[$ARGNUM_OF_FILE]="cat"
     ARGS_CAT+=("${ARGS[$ARGNUM_OF_FILE]}")
 
-    /usr/bin/env docker "${ARGS_CAT[@]}"
+    /usr/bin/env docker "${ARGS_CAT[@]}" > ${TMPFILE}
 
+    wc -l ${TMPFILE}
+
+    rm -v ${TMPFILE}
     return
 }
