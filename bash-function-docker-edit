@@ -68,6 +68,22 @@ docker()
         echo TODO: Implement wait for the suspended Vim process.
         fg
         echo TODO: On the 2nd Vim suspend this line becomes unreachable.
+
+        # Maybe use `vipe` or reimplement its' logic?
+        # Because it works via pipe and suspends properly:
+        #
+        # ~/src/diy/docker-edit-file-cli$ cat /etc/hosts | vipe | wc
+        #
+        # [3]+  Stopped                 cat /etc/hosts | vipe | wc
+        #
+        # ~/src/diy/docker-edit-file-cli$ fg
+        # cat /etc/hosts | vipe | wc
+        # vim exited nonzero, aborting
+        #       0       0       0
+        #
+        # ~/src/diy/docker-edit-file-cli$ cat /etc/hosts | vipe | wc
+        #      12      30     270
+
         RES=$?
     done
 
