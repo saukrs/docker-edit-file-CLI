@@ -51,11 +51,14 @@ docker()
     ARGS_CAT[$ARGNUM_OF_FILE]="cat"
     ARGS_CAT+=("${ARGS[$ARGNUM_OF_FILE]}")
 
+    # Retrieve the file from guest into buffer:
     /usr/bin/env docker "${ARGS_CAT[@]}" > ${TMPFILE}
 
-    ${EDITOR:-vim} ${TMPFILE} < /dev/tty > /dev/tty
+    # Edit the buffer:
+    ${EDITOR:-vim} ${TMPFILE}
     RES=$?
 
+    # Abort on editor abort:
     if [[ ! $RES -eq 0 ]]; then
         echo Docker file editing aborted. > /dev/stderr
         return $RES
