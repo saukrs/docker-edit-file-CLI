@@ -53,7 +53,7 @@ docker()
 
     /usr/bin/env docker "${ARGS_CAT[@]}" > ${TMPFILE}
 
-    wc -l ${TMPFILE}
+    ${EDITOR:-vim} ${TMPFILE} < /dev/tty > /dev/tty
 
     rm -v ${TMPFILE}
     return
