@@ -2,6 +2,14 @@
 
 The Bash shim/function to emulate editing Docker guest file from the Docker host.
 
+To achieve that the script:
+
+- copies the guest file to temporary file on the host;
+- launches the editor for that file;
+- checks if editor indicates sucessful exit;
+- in the positive case the file is copied back to the guest.
+
+
 ## Using
 
 Source the file in you Bash any way you like, eg:
