@@ -1,0 +1,4 @@
+docker()
+{
+    /usr/bin/env docker "$@"
+}
