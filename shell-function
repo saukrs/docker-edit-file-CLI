@@ -24,5 +24,24 @@ docker()
     echo TODO:
     echo Going to edit $FILE inside $SERVICE
 
+    # The plan is to convert this command line:
+    #
+    #   docker ... edit CONTAINER FILE
+    #
+    # ... into something like that:
+    #
+    #   docker ... exec CONTAINER cat FILE
+
+    # IOW:
+    # - "edit", the ${ARGS[$ARGNUM_OF_CMMD]} needs to be replaced with "exec" string.
+    # - FILE element needs to have an additional array element, the "cat" to be inserted before it.
+    #
+    #   Inserting elements into array seems to be quite of an issue in Bash:
+    #   https://riptutorial.com/bash/example/19530/array-insert-function
+    #
+    #   Thus we proceed with overwriting instead:
+    # - FILE, the ${ARGS[$ARGNUM_OF_FILE]} needs to be replaced with "cat" string.
+    # - FILE needs to be appended to the array as the new element.
+
     return
 }
