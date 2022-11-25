@@ -32,6 +32,8 @@ Eg:
 $ docker edit mongo /etc/hosts
 ```
 
+After successful write and exit, the content should appear on the guest.
+
 ## License
 
 <<LICENSE#,Blue Oak Model License>> (Version 1.0.0) -
