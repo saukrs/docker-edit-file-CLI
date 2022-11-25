@@ -14,7 +14,12 @@ To be sure for the 1st time, maybe check the result:
 $ declare -f docker
 ```
 
-Then run the edit subcommand:
+Then run the `edit` subcommand:
+```
+$ docker [OPTIONS] edit CONTAINER GUEST_FILE
+```
+
+Eg:
 ```
 $ docker edit mongo /etc/hosts
 ```
