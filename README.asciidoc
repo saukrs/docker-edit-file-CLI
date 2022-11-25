@@ -1,0 +1,25 @@
+# Implementation of `docker ... edit` subcommand
+
+The Bash shim/function to emulate editing Docker guest file from the Docker host.
+
+## Using
+
+Source the file in you Bash any way you like, eg:
+```
+$ . docker-edit-file-CLI/bash-function-docker-edit
+```
+
+To be sure for the 1st time, maybe check the result:
+```
+$ declare -f docker
+```
+
+Then run the edit subcommand:
+```
+$ docker edit mongo /etc/hosts
+```
+
+## License
+
+<<LICENSE#,Blue Oak Model License>> (Version 1.0.0) -
+a https://writing.kemitchell.com/2019/03/09/Deprecation-Notice.html[modern alternative] to the MIT license.
