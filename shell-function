@@ -43,5 +43,12 @@ docker()
     # - FILE, the ${ARGS[$ARGNUM_OF_FILE]} needs to be replaced with "cat" string.
     # - FILE needs to be appended to the array as the new element.
 
+    local ARGS_CAT=(${ARGS[@]})
+    ARGS_CAT[$ARGNUM_OF_CMMD]="exec"
+    ARGS_CAT[$ARGNUM_OF_FILE]="cat"
+    ARGS_CAT+=("${ARGS[$ARGNUM_OF_FILE]}")
+
+    /usr/bin/env docker "${ARGS_CAT[@]}"
+
     return
 }
