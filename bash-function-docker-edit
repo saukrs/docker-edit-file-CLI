@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # SPDX-FileCopyrightText: 2022 Saulius Krasuckas
 # SPDX-License-Identifier: BlueOak-1.0.0
 
@@ -27,7 +29,6 @@ docker()
     # Temporary file to buffer content of the specific file from guest:
     TMPFILE=`mktemp "/tmp/bash-function-docker-edit-XXXXXXXX-$(basename $FILE).BUFFER"`
 
-    echo TODO:
     echo Going to edit $FILE inside $SERVICE using $TMPFILE
 
     # The plan is to convert this command line:
