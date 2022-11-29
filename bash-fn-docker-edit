@@ -88,7 +88,7 @@ docker()
     done
 
     # Push the buffer contents into the original file on guest:
-    /usr/bin/env docker "${ARGS_MAIN[@]}" exec -i "${ARGS[$_SRVC]}" sh -c "cat > ${ARGS[$_FILE]}" < ${TMPFILE}
+    /usr/bin/env docker "${ARGS_MAIN[@]}" exec -T "${ARGS[$_SRVC]}" sh -c "cat > ${ARGS[$_FILE]}" < ${TMPFILE}
 
     rm -v ${TMPFILE}
     return 0
